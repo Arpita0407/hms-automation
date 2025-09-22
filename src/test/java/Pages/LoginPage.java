@@ -1,7 +1,5 @@
 package Pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -15,9 +13,9 @@ public class LoginPage {
     }
 
     // Locators
-    By emailOrPhoneField = By.name("email");   // ✅ works with your HTML
-    By passwordField = By.name("password");    // (inspect & confirm the actual attribute)
-    By loginButton = By.xpath("//button[text()='Login']"); // adjust text if different
+    By emailOrPhoneField = By.name("email");   
+    By passwordField = By.name("password");   
+    By loginButton = By.xpath("//*[@id=\"root\"]/div[1]/div/div/div[1]/form/button"); 
     //By loginButton       = By.xpath("/html/body/div[2]/div[1]/div/div/div[1]/form/button");
     By forgotPasswordLink= By.xpath("/html/body/div[2]/div[1]/div/div/div[1]/form/div/div/div[2]/div[2]/span");
 
@@ -44,5 +42,6 @@ public class LoginPage {
         enterPassword(password);
         Thread.sleep(500);
         clickLogin();
+       System.out.println("Page loaded");
     }
 }
