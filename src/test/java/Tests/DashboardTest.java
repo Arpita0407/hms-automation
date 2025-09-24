@@ -1,6 +1,10 @@
 package Tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -27,11 +31,11 @@ public class DashboardTest
 
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         // Login first
         loginPage.login("remote.tester10@gmail.com", "sadna@123");
-        Thread.sleep(1500);
+        Thread.sleep(3500);
     }
 
     @Test
@@ -69,21 +73,44 @@ public class DashboardTest
         softAssert.assertTrue(count5 >= 0, "Discharge Patient count should be visible and >= 0");
         System.out.println("Discharge Patient count: " + count5); 
         
-        boolean text = dashboardPage.isAppointmentsSectionVisible();
+        String text = dashboardPage.isAppointmentsSectionVisible();
         System.out.println("Appointments Section Text: " + text);
-
-        // Optional: validate text
         softAssert.assertEquals(text, "Appointments", "Appointments section text should match");
         
-        boolean text1 = dashboardPage.isUserProfileVisible();
+        String text1 = dashboardPage.isUserProfileVisible();
         System.out.println("User Profile Text: " + text1);
-
-        // Optional: validate text
-        softAssert.assertEquals(text1, "Mayank Shah", "User Profile text should match");
+        softAssert.assertEquals(text1, "Mayank Shah", "User Profile text should match");      
+        
+        dashboardPage.expandRooms();
+        
+        List<Map<String, String>> actualData = dashboardPage.getBedData();
+        System.out.println("=== Bed Availability Table ===");
+        
+        for (Map<String, String> row : actualData) 
+        {
+            System.out.println("Room Type: " + row.get("RoomType") + 
+                               ", Total: " + row.get("Total") +
+                               ", Available: " + row.get("Available"));
+        }
+        System.out.println("==============================");
+        
+        
+        dashboardPage.expandRooms2();
+        
+        List<Map<String, String>> actualData1 = dashboardPage.getBedData2();
+        System.out.println("=== Wards Availability Table ===");
+        
+        for (Map<String, String> row : actualData1) 
+        {
+            System.out.println("Ward Type: " + row.get("Ward Type") + 
+                               ", Total: " + row.get("Total") +
+                               ", Available: " + row.get("Available"));
+        }
+        System.out.println("==============================");
+        
         
         
         softAssert.assertAll();
-        
         
     }
     

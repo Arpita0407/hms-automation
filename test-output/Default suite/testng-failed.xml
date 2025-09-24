@@ -5,10 +5,9 @@
     <classes>
       <class name="Tests.DashboardTest">
         <methods>
-          <include name="testEncountersCount"/>
+          <include name="testDashboardElements"/>
           <include name="tearDown"/>
           <include name="setUp"/>
-          <include name="testAdmissionCount"/>
         </methods>
       </class> <!-- Tests.DashboardTest -->
     </classes>
